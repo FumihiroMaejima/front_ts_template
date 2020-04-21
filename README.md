@@ -73,10 +73,6 @@ yarn lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 # 環境構築
 
 vue-cliでプロジェクト作成時に、ある程度のパッケージの設定を自動的に行えるので出来るだけそちらを利用すること。
@@ -134,7 +130,7 @@ $ yarn add babel-jest
 
 package.jsonの編集
 
-```
+```Json
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -149,7 +145,7 @@ package.jsonの編集
 
 movie/.eslintrc.jsの作成と編集
 
-```
+```Javascript
 module.exports = {
     root: true,
     env: {
@@ -171,7 +167,7 @@ module.exports = {
 
 movie/.stylelintrcの作成と編集
 
-```
+```Json
 {
   "rules": {
     "color-hex-length": "short",
@@ -183,6 +179,30 @@ movie/.stylelintrcの作成と編集
     "number-leading-zero": "never",
     "selector-root-no-composition": true,
     "string-quotes": "single"
+  }
+}
+```
+
+
+## Vuetifyの設定
+
+インストール
+
+```
+$ vue add vuetify
+$ yarn add material-design-icons-iconfont
+```
+
+Typescriptを使っている場合は下記の通りtsconfig.jsonの「types」に「vuetify」を追加する
+
+```Json
+{
+  "compilerOptions": {
+    "types": [
+      "webpack-env",
+      "vuetify",
+      "jest"
+    ],
   }
 }
 ```
@@ -206,7 +226,7 @@ pages
 
 movie/src/router.jsの作成と編集
 
-```
+```Javascript
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
@@ -583,6 +603,8 @@ Version 3.8.3
 ```
 
 ### プロジェクトにインストールする
+
+＊Vue-cliのプロジェクト作成時に選択した方が楽である。
 
 ```
 $ yarn add typescript
