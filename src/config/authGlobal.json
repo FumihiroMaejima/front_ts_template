@@ -1,0 +1,76 @@
+{
+    "accountMenuList": [
+      {
+        "name": "account",
+        "icon": "mdi-account",
+        "link": "/admin/account"
+      },
+      {
+        "name": "setting",
+        "icon": "mdi-cogs",
+        "link": "/admin/account/setting"
+      }
+    ],
+    "navigationLists": [
+        {
+          "name": "Home",
+          "link": "/admin",
+          "icon": "mdi-home"
+        },
+        {
+          "name": "User",
+          "link": "",
+          "icon": "mdi-badge-account-horizontal-outline",
+          "subLists": [
+            {
+              "name": "Info",
+              "link": "/admin/userinfo",
+              "icon": "mdi-badge-account-horizontal-outline"
+            },
+            {
+              "name": "Log",
+              "link": "/admin/userlog",
+              "icon": "mdi-account-clock"
+            }
+          ]
+        },
+        {
+          "name": "Notification",
+          "link": "/admin",
+          "icon": "mdi-message-text"
+        },
+        {
+          "name": "Mail",
+          "link": "/admin",
+          "icon": "mdi-email"
+        },
+        {
+          "name": "Authorities",
+          "link": "/admin",
+          "icon": "mdi-account-multiple-check"
+        },
+        {
+          "name": "Task",
+          "link": "/admin",
+          "icon": "mdi-notebook-multiple"
+        },
+        {
+          "name": "Calender",
+          "link": "/admin/calender",
+          "icon": "mdi-calendar-month"
+        },
+        {
+          "name": "Document",
+          "link": "/admin",
+          "icon": "mdi-file-document-outline"
+        },
+        {
+          "name": "Setting",
+          "link": "/admin",
+          "icon": "mdi-cogs"
+        }
+    ],
+    "footerMessage": {
+      "title": "Copyright(C)2020 calicocat.tokyo,Allright Reserved."
+    }
+}

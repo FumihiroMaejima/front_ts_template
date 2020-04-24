@@ -207,6 +207,20 @@ Typescriptを使っている場合は下記の通りtsconfig.jsonの「types」�
 }
 ```
 
+
+
+## huskyの設定
+
+lint-stagedを設定する
+
+```
+$ npx mrm lint-staged
+```
+
+package.jsonに「gitHooks」の設定があれば削除する
+
+
+
 ## Componentsディレクトリの設定(Atomic Designs)
 
 movie/src/Components下に下記のディレクトリを作成する
@@ -617,6 +631,19 @@ $ yarn add ts-loader
 $ yarn add webpack
 $ yarn add webpack-cli
 ```
+
+
+## tsconfig.jsonに追記する事項
+
+随時追記する
+
+```Json
+"experimentalDecorators": true,
+"types": [
+  "vuetify",
+]
+```
+
 
 
 ## API Blueprintの設定

@@ -1,0 +1,12 @@
+{
+  "targetString": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789./!?-=^~#$%&",
+  "graphTimeXAxis": ["12am", "3am", "6am", "9am", "12pm", "3pm", "6pm", "9pm"],
+  "graphSampleValue": [423, 446, 675, 510, 590, 610, 760],
+  "defaultLineColor": "rgba(255, 255, 255, .7)",
+  "defaultSheetColor": "rgba(0, 0, 0, .12)",
+  "graphBoardColorBlue": "cyan lighten-1",
+  "graphBoardColorGreen": "light-green lighten-2",
+  "graphBoardColorRed": "red",
+  "graphBoardColorPurple": "deep-purple lighten-2",
+  "graphBoardColorYello": "yellow darken-1"
+}
