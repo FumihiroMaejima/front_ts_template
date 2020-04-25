@@ -6,13 +6,14 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import Login from "../organisms/Login.vue";
 
-export default {
-  name: "LoginPage",
+@Component({
   components: {
     Login
   }
-};
+})
+export default class LoginPage extends Vue {}
 </script>

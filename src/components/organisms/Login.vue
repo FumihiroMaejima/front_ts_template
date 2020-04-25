@@ -26,36 +26,32 @@
   </v-card>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
 import client from "@/client";
 import cnf from "@/config/config.json";
 
-export default {
-  name: "Login",
-  data() {
-    return {
-      showPassword: false
-    };
-  },
-  computed: {
-    name: {
-      get() {
-        return this.$store.getters["login/name"];
-      },
-      set(getName) {
-        this.$store.dispatch("login/getNameDataAction", getName);
-      }
-    },
-    passsword: {
-      get() {
-        return this.$store.getters["login/passsword"];
-      },
-      set(getPasssword) {
-        this.$store.dispatch("login/getPassswordDataAction", getPasssword);
-      }
-    }
-  },
-  created() {
+@Component
+export default class Login extends Vue {
+  private showPassword = false;
+
+  // computed
+  public get name(): string {
+    return this.$store.getters["login/name"];
+  }
+  public set name(getName: string) {
+    this.$store.dispatch("login/getNameDataAction", getName);
+  }
+
+  public get passsword(): string {
+    return this.$store.getters["login/passsword"];
+  }
+  public set passsword(getPasssword: string) {
+    this.$store.dispatch("login/getPassswordDataAction", getPasssword);
+  }
+
+  // created
+  public created() {
     const store = this.$store;
     function getToken() {
       const stringValue = cnf.targetString;
@@ -77,31 +73,32 @@ export default {
         });
     }
     return [getToken(), LoginFunction()];
-  },
-  methods: {
-    getName() {
-      return this.$store.getters["login/name"];
-    },
-    getPasssword() {
-      return this.$store.getters["login/passsword"];
-    },
-    LoginFunction() {
-      client
-        .post("/api/login", this.$store.state.login.postData)
-        .then(response => {
-          console.log(
-            "axios post data: " +
-              JSON.stringify(this.$store.state.login.postData)
-          );
-          console.log("axios post request: " + JSON.stringify(response.data));
-          this.$router.push("/admin");
-        })
-        .catch(error => {
-          console.log("axios post request error: " + error);
-        });
-    }
   }
-};
+
+  // methods
+  getName() {
+    return this.$store.getters["login/name"];
+  }
+
+  getPasssword() {
+    return this.$store.getters["login/passsword"];
+  }
+
+  LoginFunction() {
+    client
+      .post("/api/login", this.$store.state.login.postData)
+      .then(response => {
+        console.log(
+          "axios post data: " + JSON.stringify(this.$store.state.login.postData)
+        );
+        console.log("axios post request: " + JSON.stringify(response.data));
+        this.$router.push("/admin");
+      })
+      .catch(error => {
+        console.log("axios post request error: " + error);
+      });
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

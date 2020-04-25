@@ -24,12 +24,9 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: "NotFoundPage",
-  components: {},
-  data() {
-    return {};
-  }
-};
+<script lang="ts">
+import { Vue, Component } from "vue-property-decorator";
+
+@Component
+export default class NotFoundPage extends Vue {}
 </script>
