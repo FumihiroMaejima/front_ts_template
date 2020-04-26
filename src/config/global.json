@@ -1,0 +1,31 @@
+{
+    "supports": [
+        {
+          "name": "sample suppourt1",
+          "icon": "mdi-vuetify",
+          "link": "/template1"
+        },
+        {
+            "name": "sample suppourt2",
+            "icon": "mdi-vuetify",
+            "link": "/template2"
+        }
+    ],
+    "navLists": [
+        {
+          "name": "Sample List1",
+          "icon": "mdi-speedometer",
+          "lists": [
+            {"name": "Sub List1","link": "/"},
+            {"name": "Sub List2","link": "/"}
+        ]
+        },
+        {
+          "name": "Sample List2",
+          "icon": "mdi-cogs"
+        }
+    ],
+    "footerMessage": {
+        "title": "Copyright(C)2020 calicocat.tokyo,Allright Reserved."
+    }
+}
