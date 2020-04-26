@@ -1,10 +1,14 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
+// import Home from "../views/Home.vue";
+import { publicRoute } from "./public";
+import { adminRoute } from "./admin";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteConfig> = publicRoute.concat(adminRoute);
+
+/* const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Home",
@@ -17,9 +21,10 @@ const routes: Array<RouteConfig> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import("../views/About.vue")
   }
 ];
+ */
 
 const router = new VueRouter({
   mode: "history",
