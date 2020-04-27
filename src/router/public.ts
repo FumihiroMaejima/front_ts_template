@@ -1,4 +1,3 @@
-// import IndexPage from '@/components/HelloWorld.vue'
 import LoginPage from "@/components/pages/LoginPage.vue";
 import { RouteConfig } from "vue-router";
 
