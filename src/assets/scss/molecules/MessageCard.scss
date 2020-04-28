@@ -1,0 +1,39 @@
+.message-card {
+  &__wrapper {
+    position: relative;
+  }
+
+  &__body {
+    height: 350px;
+  }
+
+  &__body-list {
+    margin: 0 20px 0 20px;
+
+    &--item-content {
+      height:150px;
+    }
+
+    &--item-title {
+      padding: 0 20px 0 20px;
+    }
+  }
+
+  &__body-text {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+  }
+
+  &__header-card {
+    position: absolute;
+    left: 2.5%;
+    top: -12%;
+    width: 95%!important;
+
+    div {
+      margin: 10px 0 0 0!important;
+      color: #ffffff!important;
+    }
+  }
+}

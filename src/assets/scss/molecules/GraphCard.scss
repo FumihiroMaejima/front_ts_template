@@ -1,0 +1,38 @@
+.graph-card {
+  &__wrapper {
+    position: relative;
+    height: 250px;
+    max-width: 400px;
+  }
+
+  &__body {
+    height: 230px;
+    max-width: 400px;
+  }
+
+  &__body-text {
+    position: absolute;
+    top: 55%;
+    width: 100%;
+    &--title {
+      padding: 0 16px 0 16px;
+      font-size: 1.0em;
+      font-weight:bolder;
+    }
+
+    &--text {
+      padding: 2px 16px 2px 20px;
+
+      p {
+        margin: 0 0 1px 0;
+      }
+    }
+  }
+
+  &__header-card {
+    position: absolute;
+    left: 5%;
+    top: -15%;
+    width: 90%!important;
+  }
+}

@@ -92,7 +92,7 @@ export default class Login extends Vue {
           "axios post data: " + JSON.stringify(this.$store.state.login.postData)
         );
         console.log("axios post request: " + JSON.stringify(response.data));
-        // this.$router.push("/admin");
+        this.$router.push("/admin");
       })
       .catch(error => {
         console.log("axios post request error: " + error);
