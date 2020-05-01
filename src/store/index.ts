@@ -1,14 +1,20 @@
 import Vue from "vue";
-import Vuex from "vuex";
-import loginModule from "@/store/modules/login";
+import Vuex, { StoreOptions } from "vuex";
+import { RootState } from "@/store/types";
+import { login } from "@/store/modules/login";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store: StoreOptions<RootState> = {
   strict: process.env.NODE_ENV !== "production",
+  state: {
+    version: "1.0.0"
+  },
   modules: {
-    login: loginModule
+    login
   },
   mutations: {},
   actions: {}
-});
+};
+
+export default new Vuex.Store<RootState>(store);

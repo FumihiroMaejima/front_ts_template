@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import Login from "../organisms/Login.vue";
+import Login from "@/components/organisms/Login.vue";
 
 @Component({
   components: {
