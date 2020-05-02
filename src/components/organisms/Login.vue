@@ -8,7 +8,7 @@
         <v-text-field
           prepend-icon="mdi-account-circle"
           label="ユーザ名"
-          v-model="name"
+          v-model="nameData"
         />
         <v-text-field
           v-bind:type="showPassword ? 'text' : 'password'"
@@ -16,7 +16,7 @@
           prepend-icon="mdi-lock"
           @click:append="showPassword = !showPassword"
           label="パスワード"
-          v-model="passsword"
+          v-model="passwordData"
         />
         <v-card-actions>
           <v-btn class="info" @click="LoginFunction">ログイン</v-btn>
@@ -27,32 +27,61 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Vue } from "vue-property-decorator";
+import Component from "vue-class-component";
+import { namespace } from "vuex-class";
+import { PostData } from "@/store/types";
 import client from "@/client";
 import cnf from "@/config/config.json";
 
+const LoginModule = namespace("login");
 @Component
 export default class Login extends Vue {
   private showPassword = false;
 
+  @LoginModule.State("LoginState")
+  private postData!: {
+    name: PostData["name"];
+    password: PostData["password"];
+    token: PostData["token"];
+  };
+
+  @LoginModule.Getter("name")
+  private name!: string;
+
+  @LoginModule.Getter("password")
+  private password!: string;
+
+  @LoginModule.Getter("token")
+  private token!: string;
+
+  @LoginModule.Action("getNameDataAction")
+  private getNameDataAction!: (payload: PostData["name"]) => {};
+
+  @LoginModule.Action("getPasswordDataAction")
+  private getPasswordDataAction!: (payload: PostData["password"]) => {};
+
+  @LoginModule.Action("getTokenDataAction")
+  private getTokenDataAction!: (payload: PostData["token"]) => {};
+
   // computed
-  public get name(): string {
-    return this.$store.getters["login/name"];
+  public get nameData(): string {
+    return this.name;
   }
-  public set name(getName: string) {
-    this.$store.dispatch("login/getNameDataAction", getName);
+  public set nameData(getName: string) {
+    this.getNameDataAction(getName);
   }
 
-  public get passsword(): string {
-    return this.$store.getters["login/passsword"];
+  public get passwordData(): string {
+    return this.password;
   }
-  public set passsword(getPasssword: string) {
-    this.$store.dispatch("login/getPassswordDataAction", getPasssword);
+  public set passwordData(getPassword: string) {
+    this.getPasswordDataAction(getPassword);
   }
 
   // created
   public created() {
-    const store = this.$store;
+    const self = this;
     function getToken() {
       const stringValue = cnf.targetString;
       const randomString = Array.from(
@@ -60,7 +89,7 @@ export default class Login extends Vue {
       )
         .map(num => stringValue[num % stringValue.length])
         .join("");
-      store.dispatch("login/getTokenDataAction", randomString);
+      self.getTokenDataAction(randomString);
     }
     function LoginFunction() {
       client
@@ -77,11 +106,11 @@ export default class Login extends Vue {
 
   // methods
   getName() {
-    return this.$store.getters["login/name"];
+    return this.name;
   }
 
-  getPasssword() {
-    return this.$store.getters["login/passsword"];
+  getPassword() {
+    return this.password;
   }
 
   LoginFunction() {
@@ -92,7 +121,7 @@ export default class Login extends Vue {
           "axios post data: " + JSON.stringify(this.$store.state.login.postData)
         );
         console.log("axios post request: " + JSON.stringify(response.data));
-        // this.$router.push("/admin");
+        this.$router.push("/admin");
       })
       .catch(error => {
         console.log("axios post request error: " + error);

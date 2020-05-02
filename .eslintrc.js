@@ -16,6 +16,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/no-var-requiress": 0,
     "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-this-alias": 0,
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   },
