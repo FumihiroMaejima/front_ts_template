@@ -1,5 +1,7 @@
 # ts_admin
 
+[front_vuetify_template](https://github.com/FumihiroMaejima/front_vuetify_template)のTypeScript版
+
 ## Update Yarn
 
 ```
@@ -124,6 +126,7 @@ $ yarn add --dev stylelint
 $ yarn add jest
 $ yarn add vue-jest
 $ yarn add babel-jest
+$ yarn add vuex-class
 ```
 
 ## ライブラリの設定
@@ -267,6 +270,12 @@ export default new Router({
 ```
 
 ## vuexの設定
+
+TypeScriptでvuexを使う為にvuex-classをインストール
+
+```Shell
+$ yarn add vuex-class
+```
 
 movie/src/store.jsの作成と編集
 
