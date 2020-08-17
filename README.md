@@ -2,9 +2,23 @@
 
 [front_vuetify_template](https://github.com/FumihiroMaejima/front_vuetify_template)のTypeScript版
 
+---
+
+# 構成
+
+| 名前 | バージョン |
+| :--- | :---: |
+| npm | 6.12.1 |
+| node | 12.13.1 |
+| yarn | 1.22.4 |
+| vue/cli | 4.4.6 |
+| TypeScript | 3.8.3 |
+
+---
+
 ## Update Yarn
 
-```
+```Shell-session
 $ yarn -v
 1.21.1
 
@@ -18,7 +32,7 @@ $ yarn --version
 
 ## Update Vue-cli
 
-```
+```Shell-session
 $ vue --version
 @vue/cli 4.1.1
 
@@ -32,6 +46,26 @@ $ yarn -v
 1.21.1
 ```
 
+## TypeScriptのインストール
+
+### グローバルにインストールする
+
+```Shell-session
+$ npm install -g typescript
+$ tsc -v
+Version 3.8.3
+```
+
+### プロジェクトにインストールする
+
+＊Vue-cliのプロジェクト作成時にもインストール出来る。
+
+```Shell-session
+$ yarn add typescript
+```
+
+---
+
 
 ## Make Projet
 
@@ -39,7 +73,7 @@ $ yarn -v
 一度rootに新規プロジェクトディレクトリを作成し、
 node_modules以外をrootディレクトリに移すことでプロジェクトを作ることが出来る。
 
-```
+```Shell-session
 $ vue create sample
 $ mv sample/* ./ // エディターを使ってコピペして来た方が良い
 $ rm -rf sample
@@ -47,33 +81,34 @@ $ yarn install
 ```
 
 ## Project setup
-```
+```Shell-session
 yarn install
 ```
 
 ### Compiles and hot-reloads for development
-```
+```Shell-session
 yarn serve
 ```
 
 ### Compiles and minifies for production
-```
+```Shell-session
 yarn build
 ```
 
 ### Run your unit tests
-```
+```Shell-session
 yarn test:unit
 ```
 
 ### Lints and fixes files
-```
+```Shell-session
 yarn lint
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+---
 
 # 環境構築
 
@@ -81,7 +116,7 @@ vue-cliでプロジェクト作成時に、ある程度のパッケージの設�
 
 ## envファイルの設定
 
-「.env.local-example」をリネームして環境ごとの環境変数を設定する
+「.env.example」をリネームして環境ごとの環境変数を設定する
 
 ```
 .env.local
@@ -104,29 +139,30 @@ VUE_APP_API_BASE_URL='http://localhost:8080/api/v1/xxx'
 ## アセットディレクトリの作成
 
 /src/assets/下に
-「css」、「img」、「js」ディレクトリ作成
+「css」、「img」ディレクトリ作成
 
 ## ライブラリの追加
 
 下記のライブラリを追加
 
-ルートディレクトリにある[パッケージインストール用バッチ](./yarn_package_list.sh)を使ってもインストール出来る。
-必要に応じてコメントアウトをかける、外すが必要。
-
-```
-$ yarn add vue-router
-$ yarn add vuex
+```Shell-session
 $ yarn add axios
 $ yarn add axios-mock-server
-$ vue add vuetify
-$ yarn add material-design-icons-iconfont
 $ yarn add @vue/test-utils
-$ yarn add --dev prettier
-$ yarn add --dev stylelint
 $ yarn add jest
-$ yarn add vue-jest
-$ yarn add babel-jest
 $ yarn add vuex-class
+$ yarn add --dev stylelint
+$ yarn add --dev vue-jest
+$ yarn add --dev babel-jest
+$ yarn add --dev node-sass
+
+```
+
+一括の場合
+
+```Shell-session
+$ yarn add axios axios-mock-server @vue/test-utils jest vuex-class
+$ yarn add --dev stylelint vue-jest babel-jest node-sass
 ```
 
 ## ライブラリの設定
@@ -146,29 +182,47 @@ package.jsonの編集
   },
 ```
 
-movie/.eslintrc.jsの作成と編集
+/.eslintrc.jsの作成と編集
 
-```Javascript
+⇨プロジェクト作成時に自動的に作成出来る。
+
+```TypeScript
 module.exports = {
-    root: true,
-    env: {
-        node: true
-    },
-    'extends': [
-        'plugin:vue/essential',
-        'eslint:recommended'
-    ],
-    rules: {
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-    },
-    parserOptions: {
-        parser: 'babel-eslint'
+  root: true,
+  env: {
+    node: true
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    '@vue/typescript/recommended',
+    '@vue/prettier',
+    '@vue/prettier/@typescript-eslint'
+  ],
+  parserOptions: {
+    ecmaVersion: 2020
+  },
+  rules: {
+    '@typescript-eslint/no-var-requires': 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+  },
+  overrides: [
+    {
+      files: [
+        '**/__tests__/*.{j,t}s?(x)',
+        '**/tests/unit/**/*.spec.{j,t}s?(x)'
+      ],
+      env: {
+        jest: true
+      }
     }
+  ]
 }
 ```
 
-movie/.stylelintrcの作成と編集
+.stylelintrcの作成と編集
 
 ```Json
 {
@@ -186,12 +240,11 @@ movie/.stylelintrcの作成と編集
 }
 ```
 
-
 ## Vuetifyの設定
 
 インストール
 
-```
+```Shell-session
 $ vue add vuetify
 $ yarn add material-design-icons-iconfont
 ```
@@ -210,13 +263,17 @@ Typescriptを使っている場合は下記の通りtsconfig.jsonの「types」�
 }
 ```
 
-
-
 ## huskyの設定
+
+huskyが設定されていなければ追加する
+
+```Shell-session
+$ yarn add --dev husky
+```
 
 lint-stagedを設定する
 
-```
+```Shell-session
 $ npx mrm lint-staged
 ```
 
@@ -226,12 +283,12 @@ package.jsonに「gitHooks」の設定があれば削除する
 
 ## Componentsディレクトリの設定(Atomic Designs)
 
-movie/src/Components下に下記のディレクトリを作成する
+/src/Components下に下記のディレクトリを作成する
 Atomic Designs
 
 ＊(pagesとorganismsで十分作れるのならtemplatesは作らない)
 
-```
+```Shell-session
 atoms
 molecules
 organisms
@@ -241,9 +298,9 @@ pages
 
 ## vue-routerの設定
 
-movie/src/router.jsの作成と編集
+/src/router.jsの作成と編集
 
-```Javascript
+```TypeScript
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
@@ -277,11 +334,11 @@ TypeScriptでvuexを使う為にvuex-classをインストール
 $ yarn add vuex-class
 ```
 
-movie/src/store.jsの作成と編集
+/src/store.jsの作成と編集
 
 関連するモジュールも作成しておくこと
 
-```Javascript
+```TypeScript
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import testModule from './store/modules/testModule'
@@ -308,13 +365,13 @@ export default store
 ```
 
 
-movie/src/store/modulesディレクトリの作成
+/src/store/modulesディレクトリの作成
 
 ```shell-session
 $ mkdir /src/store/modules
 ```
 
-movie/src/store/modules/testModule.jsの作成と編集
+/src/store/modules/testModule.jsの作成と編集
 
 コードは省略
 
@@ -323,9 +380,9 @@ movie/src/store/modules/testModule.jsの作成と編集
 
 「/test」にアクセスした時に利用するコンポーネント
 
-movie/src/components/Pages/TestPage.vueの作成と編集
+/src/components/Pages/TestPage.vueの作成と編集
 
-```Javascript
+```TypeScript
 <template>
     <div>
         <TestSubModuleComponent module="subModule1"/>
@@ -347,11 +404,11 @@ export default {
 }
 ```
 
-## main.jsの設定
+## main.tsの設定
 
-main.jsの編集
+main.tsの編集
 
-```Javascript
+```TypeScript
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers/'
@@ -368,13 +425,20 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+require("@/assets/scss/App.scss");
 ```
+
+基本的な設定は上記の通り
+
+次はより詳細な設定を記載する。
+
+---
 
 ## App.vueの設定
 
 App.vueの編集
 
-```Javascript
+```TypeScript
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
@@ -411,12 +475,12 @@ $ mkdir mocks
 
 ### apiファイルとdataファイルを作成
 
-/mocks/api/users/user.js
+/mocks/api/users/user.ts
 /mocks/data/users/user.json
 
-・user.js
+・user.ts
 
-```Javascript
+```TypeScript
 import data from '../../data/users/user.json'
 
 export default {
@@ -450,11 +514,11 @@ mocks/$mock.js was built successfully.
 
 /mocks/$mock.jsファイルが作成される。
 
-### client.jsの修正
+### client.tsの修正
 
-client.jsを下記の通りに修正
+client.tsを下記の通りに修正
 
-```Javascript
+```TypeScript
 import axios from 'axios'
 import mock from '../mocks/$mock'
 if (process.env.NODE_ENV === 'development') {
@@ -477,7 +541,7 @@ export default {
 
 バックエンドのプロキシ設定を行う。
 
-```Javascript
+```TypeScript
 module.exports = {
   // ポートなどの設定
   devServer: {
@@ -492,12 +556,17 @@ module.exports = {
 }
 ```
 
+---
 
-## テスト環境の構築
+## テスト環境(Jest)の構築
 
 下記をインストール
 
-```
+プロジェクト作成直後にJestを選択している場合は下記は全て行う必要は無い。
+
+jest.config.jsの設定のみ修正が必要。
+
+```shell-session
 $ yarn add @vue/test-utils
 $ yarn add jest
 $ yarn add vue-jest
@@ -517,7 +586,7 @@ babel-core、babel-preset-envを「devDependencies」側にインストールす
 
 package.jsonのscriptにJestを設定
 
-```
+```JSON
 "scripts": {
     ・
 	"test:unit": "jest",
@@ -525,9 +594,9 @@ package.jsonのscriptにJestを設定
 }
 ```
 
-ackage.jsonにJestの設定
+package.jsonにJestの設定
 
-```
+```JSON
   "jest": {
     "moduleFileExtensions": [
       "js",
@@ -572,10 +641,10 @@ ackage.jsonにJestの設定
 
 eslintが邪魔するなら「/* eslint-disable no-undef */」を先頭に追記
 
-Sampleコンポーネントファイルのテストファイル、Sample.spec.jsとすると下記の様な具合
-/tests/unit/Sample.spec.js
+Sampleコンポーネントファイルのテストファイル、Sample.spec.tsとすると下記の様な具合
+/tests/unit/Sample.spec.ts
 
-```
+```TypeScript
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import { shallowMount } from '@vue/test-utils'
@@ -592,12 +661,80 @@ describe('Sample test', () => {
 ```
 
 
+---
+
+## tailwindcssの設定
+
+tailwindcssのインストール
+
+```shell-session
+$ yarn add tailwindcss
+```
+
+tailwind.cssの設定ファイルの作成
+
+```shell-session
+$ yarn tailwindcss init
+```
+
+設定ファイル(tailwind.config.js)の編集
+
+purgeの設定は必ず行う。
+
+```Javascript
+module.exports = {
+  purge: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.vue'],
+  theme: {
+    extend: {}
+  },
+  variants: {},
+  plugins: []
+}
+```
+
+専用のcssファイル(tailwind.css)の作成
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+ルートのcssファイルでimportを行う。
+
+```css
+@import './tailwind';
+```
+
+postcssの設定
+
+```shell-session
+$ yarn add autoprefixer
+$ yarn add postcss-cli
+```
+
+設定ファイル(postcss.config.js)の編集
+
+```Javascript
+const tailwindcss = require('tailwindcss')
+const autoprefixer = require('autoprefixer')
+
+module.exports = {
+  plugins: [tailwindcss, autoprefixer]
+}
+```
+
+```shell-session
+$ yarn add tailwindcss
+```
+
+---
 
 ## SCSSの利用設定
 
 ### sass-loaderとnode-sassをインストールする
 
-```
+```shell-session
 $ yarn add --dev sass-loader
 $ yarn add --dev node-sass
 $ yarn add --dev css-loader
@@ -609,17 +746,18 @@ $ yarn add --dev stylus
 $ yarn add --dev stylus-loader
 ```
 
-main.jsに追記
+main.tsに追記
 
-```Javascript
+```TypeScript
 require('@/assets/scss/App.scss')
 ```
+---
 
 ## TypeScriptのインストール
 
 ### グローバルにインストールする
 
-```
+```shell-session
 $ npm install -g typescript
 $ tsc -v
 Version 3.8.3
@@ -629,31 +767,193 @@ Version 3.8.3
 
 ＊Vue-cliのプロジェクト作成時に選択した方が楽である。
 
-```
+```shell-session
 $ yarn add typescript
 ```
 
 その他のパッケージもインストールする
 
-```
+```shell-session
 $ yarn add ts-loader
 $ yarn add webpack
 $ yarn add webpack-cli
 ```
-
 
 ## tsconfig.jsonに追記する事項
 
 随時追記する
 
 ```Json
+"resolveJsonModule": true,
 "experimentalDecorators": true,
 "types": [
+  "webpack-env",
   "vuetify",
+  "jest"
 ]
 ```
 
+---
 
+## Storybookの設定
+
+
+### Storybookのインストール
+
+```shell-session
+$ yarn add --dev @storybook/vue
+```
+
+### その他パッケージのインストール
+
+```shell-session
+$ yarn add --dev babel-preset-vue
+$ yarn add --dev ts-loader
+$ yarn add --dev sass-resources-loader
+```
+
+```shell-session
+$ yarn add --dev babel-preset-vue ts-loader sass-resources-loader
+```
+
+### addonのインストール
+
+```shell-session
+$ yarn add --dev @storybook/addon-knobs
+$ yarn add --dev @storybook/addon-actions
+$ yarn add --dev @storybook/addon-notes
+$ yarn add --dev @storybook/addon-viewport
+$ yarn add --dev @storybook/addon-a11y
+$ yarn add --dev @storybook/addon-backgrounds
+$ yarn add --dev @storybook/source-loader
+```
+
+```shell-session
+$ yarn add --dev @storybook/addon-knobs @storybook/addon-actions @storybook/addon-notes @storybook/addon-viewport @storybook/addon-a11y @storybook/addon-backgrounds @storybook/source-loader
+```
+
+`addon-viewport`は現状エラーが発生する為、インストールは不要
+
+
+### Storybookのコマンド設定
+
+pasckage.jsonの`scripts`に下記の設定を追記する。
+ポート番号を変更する場合は
+
+```Json
+  "scripts": {
+    "storybook": "start-storybook -p 9100"
+  },
+```
+
+### Storybookの設定ファイルについて
+
+`/.storybookw`ディレクトリを作成し、下記のファイルを作成する。
+
+- addons.ts
+
+- config.ts
+
+- webpack.config.js
+
+・addons.ts
+
+```TypeScript
+import '@storybook/addon-knobs/register'
+import '@storybook/addon-actions/register'
+import '@storybook/addon-notes/register'
+// import '@storybook/addon-viewport/register'
+import '@storybook/addon-a11y/register'
+import '@storybook/addon-backgrounds/register'
+
+```
+
+
+config.ts
+
+基本的な設定は下記の通り
+
+Story(サンドボックス環境)ファイルの格納場所や拡張子を変更する場合は下記を修正する。
+
+```TypeScript
+function loadStories() {
+  const req = require.context('../src/stories', true, /\.story\.ts$/)
+  req.keys().forEach(filename => req(filename))
+}
+
+configure(loadStories, module)
+```
+
+・webpack.config.js
+
+`ts`拡張子にすると現状下記の様なエラーが発生する為、`js`拡張子にする。
+
+`Module parse failed: Unexpected character '@'`
+
+```JavaScript
+const path = require('path')
+const rootPath = path.resolve(__dirname, '../src')
+
+module.exports = ({ config, mode }) => {
+
+  config.resolve.alias['~'] = rootPath
+  config.resolve.alias['@'] = rootPath
+
+  // for Typescript
+  config.module.rules.push({
+    test: /\.ts$/,
+    use: [
+      {
+        loader: 'ts-loader',
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+          transpileOnly: true
+        },
+      }
+    ],
+  })
+
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: [
+      {
+        loader: 'style-loader'
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          modules: {
+            mode: 'local',
+            localIdentName: '[local]_[hash:base64:5]',
+          },
+        }
+      },
+      {
+        loader: 'sass-loader'
+      },
+      {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: [
+            path.resolve(__dirname, '../src/assets/scss/*.scss'),
+          ],
+          rootPath
+        }
+      },
+    ]
+  })
+
+  config.resolve.modules = [
+    ...(config.resolve.modules || []),
+    rootPath
+  ]
+
+  return config
+}
+
+```
+
+---
 
 ## API Blueprintの設定
 
