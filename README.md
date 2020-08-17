@@ -594,7 +594,7 @@ package.jsonのscriptにJestを設定
 }
 ```
 
-ackage.jsonにJestの設定
+package.jsonにJestの設定
 
 ```JSON
   "jest": {
