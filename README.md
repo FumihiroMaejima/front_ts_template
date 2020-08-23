@@ -990,10 +990,10 @@ Vuetifyを使う場合は、`./storybook`ディレクトリにpreview.tsを作�
 
 
 ```TypeScript
-import Vue from "vue";
-import Vuetify from "vuetify";
-import "vuetify/dist/vuetify.css";
-import colors from 'vuetify/es5/util/colors';
+import Vue from "vue"
+import Vuetify from "vuetify"
+import "vuetify/dist/vuetify.css"
+import colors from 'vuetify/es5/util/colors'
 
 const vuetifyOptions = {}
 
@@ -1013,7 +1013,7 @@ Vue.use(Vuetify, {
       }
     }
   }
-});
+})
 
 export const parameters = {
   backgrounds: {
@@ -1022,14 +1022,14 @@ export const parameters = {
       { name: 'Sample BG 2', value: '#000000' },
     ],
   },
-};
+}
 
 export const decorators = [
   () => {
     return (
     { vuetify: new Vuetify(vuetifyOptions), template: '<v-app><story/></v-app>' }
   )}
-];
+]
 ```
 
 ---
