@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "storybook": "start-storybook -p 9100",
     "mock:build": "axios-mock-server -b",
     "mock:watch": "axios-mock-server -w"
   },
@@ -24,6 +25,12 @@
     "vuex-class": "^0.3.2"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^6.0.16",
+    "@storybook/addon-essentials": "^6.0.16",
+    "@storybook/addon-knobs": "^6.0.16",
+    "@storybook/addon-notes": "^5.3.19",
+    "@storybook/source-loader": "^6.0.16",
+    "@storybook/vue": "^6.0.16",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
@@ -37,6 +44,7 @@
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "1.0.0-beta.31",
+    "babel-preset-vue": "^2.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
@@ -45,6 +53,8 @@
     "prettier": "^1.19.1",
     "sass": "^1.26.3",
     "sass-loader": "^8.0.2",
+    "sass-resources-loader": "^2.1.0",
+    "ts-loader": "^8.0.2",
     "typescript": "~3.8.3",
     "vue-cli-plugin-vuetify": "~2.0.5",
     "vue-template-compiler": "^2.6.11",
