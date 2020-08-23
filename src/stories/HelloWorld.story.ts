@@ -11,9 +11,7 @@ export default {
     docs: {
       extractComponentDescription: (component: any, { notes }: any) => {
         if (notes) {
-          return typeof notes === "string"
-            ? notes
-            : notes.markdown || notes.text;
+          return notes.markdown;
         }
         return null;
       }
