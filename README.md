@@ -948,10 +948,10 @@ export default {
     docs: {
       extractComponentDescription: (component: any, { notes }: any) => {
         if (notes) {
-          return typeof notes === 'string' ? notes : notes.markdown || notes.text
+          return notes.markdown
         }
-        return null;
-      },
+        return null
+      }
     },
     notes: { markdown }
   }
@@ -961,9 +961,7 @@ export const HelloTest = () => ({
   components: { HelloWorld },
   template: `
     <div>
-      <div>
-        <HelloWorld :msg="msg" />
-      </div>
+      <HelloWorld :msg="msg" />
     </div>
   `,
   props: {
