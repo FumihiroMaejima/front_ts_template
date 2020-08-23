@@ -795,8 +795,7 @@ $ yarn add webpack-cli
 
 ---
 
-## Storybookの設定
-
+## Storybookの設定(v6.0.0以降)
 
 ### Storybookのインストール
 
@@ -820,19 +819,15 @@ $ yarn add --dev babel-preset-vue ts-loader sass-resources-loader
 
 ```shell-session
 $ yarn add --dev @storybook/addon-knobs
-$ yarn add --dev @storybook/addon-actions
 $ yarn add --dev @storybook/addon-notes
-$ yarn add --dev @storybook/addon-viewport
 $ yarn add --dev @storybook/addon-a11y
-$ yarn add --dev @storybook/addon-backgrounds
+$ yarn add --dev @storybook/addon-essentials
 $ yarn add --dev @storybook/source-loader
 ```
 
 ```shell-session
-$ yarn add --dev @storybook/addon-knobs @storybook/addon-actions @storybook/addon-notes @storybook/addon-viewport @storybook/addon-a11y @storybook/addon-backgrounds @storybook/source-loader
+$ yarn add --dev @storybook/addon-knobs @storybook/addon-notes @storybook/addon-a11y @storybook/addon-essentials @storybook/source-loader
 ```
-
-`addon-viewport`は現状エラーが発生する為、インストールは不要
 
 
 ### Storybookのコマンド設定
@@ -850,38 +845,18 @@ pasckage.jsonの`scripts`に下記の設定を追記する。
 
 `/.storybookw`ディレクトリを作成し、下記のファイルを作成する。
 
-- addons.ts
-
-- config.ts
+- main.ts
 
 - webpack.config.js
 
-・addons.ts
+・main.ts
 
 ```TypeScript
-import '@storybook/addon-knobs/register'
-import '@storybook/addon-actions/register'
-import '@storybook/addon-notes/register'
-// import '@storybook/addon-viewport/register'
-import '@storybook/addon-a11y/register'
-import '@storybook/addon-backgrounds/register'
-
-```
-
-
-config.ts
-
-基本的な設定は下記の通り
-
-Story(サンドボックス環境)ファイルの格納場所や拡張子を変更する場合は下記を修正する。
-
-```TypeScript
-function loadStories() {
-  const req = require.context('../src/stories', true, /\.story\.ts$/)
-  req.keys().forEach(filename => req(filename))
+module.exports = {
+  stories: ['../src/stories/**/*.story.@(ts|js)'],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-knobs/preset'],
 }
 
-configure(loadStories, module)
 ```
 
 ・webpack.config.js
@@ -951,6 +926,110 @@ module.exports = ({ config, mode }) => {
   return config
 }
 
+```
+
+### storyファイルについて
+
+`/src/stories`ディレクトリを作成し、`*.story.@(ts|js)`の形式のファイルを作成する。
+
+HelloWorld.vueのstoryファイルを作成した例は下記の通り
+
+```TypeScript
+// import { action } from '@storybook/addon-actions' // clickイベントなどで使う
+import { text } from '@storybook/addon-knobs'
+import HelloWorld from '../components/HelloWorld.vue'
+import markdown from './notes/sample.md'
+
+// コンポーネントのメタデータを記述
+export default {
+  title: 'Test/HelloTest',
+  parameters: {
+    layout: 'centered',
+    docs: {
+      extractComponentDescription: (component: any, { notes }: any) => {
+        if (notes) {
+          return notes.markdown
+        }
+        return null
+      }
+    },
+    notes: { markdown }
+  }
+}
+
+export const HelloTest = () => ({
+  components: { HelloWorld },
+  template: `
+    <div>
+      <HelloWorld :msg="msg" />
+    </div>
+  `,
+  props: {
+    msg: {
+      type: String,
+      default: text('msg', 'default text')
+    }
+  },
+  data() {
+    return {}
+  },
+  methods: {}
+})
+
+```
+
+下記のコマンド実行でブラウザに画面が出力される。s
+
+```shell-session
+$ yarn storybook
+```
+
+### Vuetifyを使う場合
+
+Vuetifyを使う場合は、`./storybook`ディレクトリにpreview.tsを作成して`config.ts`に記載していた内容を記載する。
+
+
+```TypeScript
+import Vue from "vue"
+import Vuetify from "vuetify"
+import "vuetify/dist/vuetify.css"
+import colors from 'vuetify/es5/util/colors'
+
+const vuetifyOptions = {}
+
+Vue.use(Vuetify, {
+  customVariables: ['../src/assets/variables.scss'],
+  theme: {
+    dark: false,
+    themes: {
+      dark: {
+        primary: colors.blue.darken2,
+        accent: colors.grey.darken3,
+        secondary: colors.amber.darken3,
+        info: colors.teal.lighten1,
+        warning: colors.amber.base,
+        error: colors.deepOrange.accent4,
+        success: colors.green.accent3
+      }
+    }
+  }
+})
+
+export const parameters = {
+  backgrounds: {
+    value: [
+      { name: 'Sample BG 1', value: '#CCCCCC', default: true },
+      { name: 'Sample BG 2', value: '#000000' },
+    ],
+  },
+}
+
+export const decorators = [
+  () => {
+    return (
+    { vuetify: new Vuetify(vuetifyOptions), template: '<v-app><story/></v-app>' }
+  )}
+]
 ```
 
 ---
