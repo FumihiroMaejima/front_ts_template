@@ -24,9 +24,7 @@ export const HelloTest = () => ({
   components: { HelloWorld },
   template: `
     <div>
-      <div>
-        <HelloWorld :msg="msg" />
-      </div>
+      <HelloWorld :msg="msg" />
     </div>
   `,
   props: {
